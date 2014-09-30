@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+# Tous les fichiers copiés doivent appartenir à user
+chown -R user:users ~user/.config ~user/.local
+
