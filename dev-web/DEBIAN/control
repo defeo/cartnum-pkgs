@@ -1,0 +1,11 @@
+Package: dev-web
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: geany, emacs, php-elisp, vim, apache2, php5, libapache2-mod-php5, php5-cli, php5-mysql, php5-curl, libjs-jquery-ui, mysql-client, mysql-server, mysql-workbench, phpmyadmin, wget, curl, telnet, elinks, lynx, w3m, gcc, make, python, perl, ruby, chromium-browser
+Description: [UVSQ/Sciences/Info] Développement web.
+ Ce paquet dépend des paquets utilisés pour la programmation web.
+
