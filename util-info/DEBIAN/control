@@ -1,0 +1,10 @@
+Package: util-info
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: vim, ntfs-3g, openssh-client, openssl, aptitude, gnuplot
+Description: [UVSQ/Sciences/Info] Utilitaires.
+
