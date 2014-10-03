@@ -27,6 +27,14 @@ $(DEST_DIR)/%.deb : %/DEBIAN/control
 	dpkg -b $(notdir $(basename $@)) $(basename $@)_$(DEBVERSION)_$(ARCH).deb
 $(DEST_DIR)/%.deb : %/DEBIAN/postinst
 
+# Création du graphe de dépendance du paquet
+# Le paquet doit se trouver sans un dépôt accessible par apt
+%.dot :
+	debtree --max-depth=2 $(basename $@) > $@
+
+%.pdf : %.dot
+	dot -Tpdf -o $@ $<
+
 .PHONY: install listrepo cleanrepo debgraph clean
 install: PKG2INSTALL=$(wildcard $(DEST_DIR)/*_*_*.deb) 
 install:
