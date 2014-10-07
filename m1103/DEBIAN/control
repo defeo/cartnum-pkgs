@@ -1,0 +1,11 @@
+Package: m1103
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: dev-c, flex, byacc, bison
+Description: [UVSQ/Sciences/Info] Module d'enseignement M1 103 - Compilation.
+ Ce paquet regroupe des ressources utilisées lors des TD de ce module.
+

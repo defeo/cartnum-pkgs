@@ -1,6 +1,6 @@
 # La liste des paquets
 # Chaque nom de paquet correspond à un répertoire contenant la structure d'un paquet Debian
-PKGS = dptinf dev-c dev-web util-info
+PKGS = dptinf in605 m1103 dev-c dev-web dev-java ufrsciences util-info
 PKGS_DEB = $(PKGS:%=$(DEST_DIR)/%.deb)
 
 # Le répertoire où seront placés les .deb créés

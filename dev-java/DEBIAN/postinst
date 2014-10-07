@@ -1,0 +1,98 @@
+#!/bin/bash -eux
+# Install eclipse and IntelliJ IDEA
+# A JDK have to be already installed on the system
+
+# Configuration for eclipse
+ECLIPSE_URL="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR1/eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz&r=1"
+ECLIPSE_ARCHIVE=eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz
+ECLIPSE_DEST_PATH=/opt
+
+# Configuration for IntelliJ IDEA
+IDEA_URL="http://download.jetbrains.com/idea/ideaIC-13.1.5.tar.gz"
+IDEA_ARCHIVE=ideaIC-13.1.5.tar.gz
+IDEA_DEST_PATH=/opt
+
+# Install the eclipse Java IDE
+
+# Downloading eclipse
+wget -O $ECLIPSE_ARCHIVE $ECLIPSE_URL
+
+# installing
+tar -C $ECLIPSE_DEST_PATH -xaf $ECLIPSE_ARCHIVE
+
+# Remove archive
+rm -f $ECLIPSE_ARCHIVE
+
+# installing plugins
+$ECLIPSE_DEST_PATH/eclipse/eclipse \
+-clean -purgeHistory \
+-application org.eclipse.equinox.p2.director \
+-noSplash \
+-repository \
+http://download.eclipse.org/releases/luna,\
+http://eclipse-cs.sf.net/update,\
+http://findbugs.cs.umd.edu/eclipse,\
+http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/,\
+http://eclipse-color-theme.github.com/update \
+-installIUs \
+net.sf.eclipsecs.feature.group,\
+com.github.sevntu.checkstyle.checks.feature.feature.group,\
+edu.umd.cs.findbugs.plugin.eclipse.feature.group,\
+net.sourceforge.pmd.eclipse.feature.group,\
+org.eclipse.team.svn.feature.group,\
+org.eclipse.team.svn.resource.ignore.rules.jdt.feature.group,\
+org.eclipse.team.svn.revision.graph.feature.group,\
+org.eclipse.team.svn.nl1.feature.group,\
+com.github.eclipsecolortheme.feature.feature.group \
+-vmargs -Declipse.p2.mirrors=true
+
+# Generate an eclipse launcher
+(
+cat <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=Eclipse
+Comment=Eclipse IDE
+Exec=$ECLIPSE_DEST_PATH/eclipse/eclipse
+Icon=$ECLIPSE_DEST_PATH/eclipse/icon.xpm
+Terminal=false
+Type=Application
+Categories=GNOME;Application;Development;
+StartupNotify=true"
+EOF
+) > /usr/share/applications/eclipse.desktop
+
+# Define the path of the workspace
+sed -i -e "s/^--launcher.defaultAction$/-data\nworkspace\n--launcher.defaultAction/" $ECLIPSE_DEST_PATH/eclipse/eclipse.ini
+
+# Install the Intellij IDEA IDE
+
+# Downloading
+wget -O $IDEA_ARCHIVE $IDEA_URL
+
+# installing
+tar -C $IDEA_DEST_PATH -xaf $IDEA_ARCHIVE
+
+# Remove archive
+rm -f $IDEA_ARCHIVE
+
+# Create a symlink to IDEA path
+IDEA_PATH=$(ls $IDEA_DEST_PATH | grep idea)
+ln -s $IDEA_DEST_PATH/$IDEA_PATH $IDEA_DEST_PATH/idea
+
+# Generate a launcher
+(
+cat <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=IntelliJ IDEA
+Comment=IntelliJ IDEA IDE
+Exec=$IDEA_DEST_PATH/idea/bin/idea.sh
+Icon=$IDEA_DEST_PATH/idea/bin/idea.png
+Terminal=false
+Type=Application
+Categories=GNOME;Application;Development;
+StartupNotify=true"
+EOF
+) > /usr/share/applications/idea.desktop
+

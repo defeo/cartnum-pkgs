@@ -1,0 +1,10 @@
+Package: in605
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: dev-c, clisp, emacs, nedit
+Description: [UVSQ/Sciences/Info] Module d'enseignement IN 605 - Langages avancés.
+

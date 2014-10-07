@@ -1,0 +1,10 @@
+Package: ufrsciences
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: libreoffice, chromium-browser, firefox, flashplugin-nonfree, filezilla, vlc, musescore, r-base, r-cran-rcmdr, scilab, gimp
+Description: [UVSQ/Sciences] Méta-paquet pour les enseignements de l'UFR des sciences.
+
