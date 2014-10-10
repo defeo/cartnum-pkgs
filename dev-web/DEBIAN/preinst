@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+# Définition du mot de passe root de MySQL
+echo "mysql-server mysql-server/root_password password user" | debconf-set-selections
+echo "mysql-server mysql-server/root_password_again password user" | debconf-set-selections
+
+# Définition de configuration de PhpMyAdmin
+echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-user string root" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/admin-pass password user" | debconf-set-selections
+echo "phpmyadmin phpmyadmin/mysql/app-pass password user" |debconf-set-selections
+echo "phpmyadmin phpmyadmin/app-password-confirm password user" | debconf-set-selections
+

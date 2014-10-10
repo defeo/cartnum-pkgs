@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+# Création de l'utilisateur user sous MySQL
+mysql -u root -puser <<EOF
+CREATE DATABASE user;
+GRANT ALL PRIVILEGES ON user.* TO user@localhost IDENTIFIED BY 'user';
+EOF
+
