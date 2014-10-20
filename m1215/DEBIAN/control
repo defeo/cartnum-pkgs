@@ -1,0 +1,10 @@
+Package: m1215
+Version: 0.0.2
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: dev-web, nodejs, npm, sqlite3
+Description: [UVSQ/Sciences/Info] Node.js and tools for the WAS course
+
