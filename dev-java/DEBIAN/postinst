@@ -8,7 +8,7 @@ ECLIPSE_ARCHIVE=eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz
 ECLIPSE_DEST_PATH=/opt
 
 # Configuration for IntelliJ IDEA
-IDEA_URL="http://download.jetbrains.com/idea/ideaIC-13.1.5.tar.gz"
+IDEA_URL="http://download.jetbrains.com/idea/ideaIC-14.0.2.tar.gz"
 IDEA_ARCHIVE=ideaIC-13.1.5.tar.gz
 IDEA_DEST_PATH=/opt
 
