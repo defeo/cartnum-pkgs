@@ -5,6 +5,6 @@ Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 0
-Depends: vim, ntfs-3g, openssh-client, openssl, aptitude, gnuplot, gnuplot-x11
+Depends: vim, ntfs-3g, openssh-client, openssl, aptitude, gnuplot, gnuplot-x11, geany
 Description: [UVSQ/Sciences/Info] Utilitaires.
 
