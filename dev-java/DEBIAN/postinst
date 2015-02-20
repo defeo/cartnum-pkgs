@@ -3,13 +3,15 @@
 # A JDK have to be already installed on the system
 
 # Configuration for eclipse
-ECLIPSE_URL="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR1/eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz&r=1"
-ECLIPSE_ARCHIVE=eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz
+ECLIPSE_URL="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/luna/SR1a/eclipse-java-luna-SR1a-linux-gtk-x86_64.tar.gz&r=1"
+ECLIPSE_ARCHIVE=eclipse-java-luna-SR1a-linux-gtk-x86_64.tar.gz
 ECLIPSE_DEST_PATH=/opt
+ECLIPSE_DEST_NAME=eclipse-java-luna
+ECLIPSE_MENU_NAME="Eclipse Luna (Java)"
 
 # Configuration for IntelliJ IDEA
-IDEA_URL="http://download.jetbrains.com/idea/ideaIC-14.0.2.tar.gz"
-IDEA_ARCHIVE=ideaIC-13.1.5.tar.gz
+IDEA_URL="http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz"
+IDEA_ARCHIVE=ideaIC-14.0.3.tar.gz
 IDEA_DEST_PATH=/opt
 
 # Install the eclipse Java IDE
@@ -19,12 +21,13 @@ wget -O $ECLIPSE_ARCHIVE $ECLIPSE_URL
 
 # installing
 tar -C $ECLIPSE_DEST_PATH -xaf $ECLIPSE_ARCHIVE
+mv $ECLIPSE_DEST_PATH/eclipse $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME
 
 # Remove archive
 rm -f $ECLIPSE_ARCHIVE
 
 # installing plugins
-$ECLIPSE_DEST_PATH/eclipse/eclipse \
+$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse \
 -clean -purgeHistory \
 -application org.eclipse.equinox.p2.director \
 -noSplash \
@@ -51,19 +54,20 @@ com.github.eclipsecolortheme.feature.feature.group \
 cat <<EOF
 [Desktop Entry]
 Encoding=UTF-8
-Name=Eclipse
+Name=$ECLIPSE_MENU_NAME
 Comment=Eclipse IDE
-Exec=$ECLIPSE_DEST_PATH/eclipse/eclipse
-Icon=$ECLIPSE_DEST_PATH/eclipse/icon.xpm
+Exec=$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse
+Icon=$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/icon.xpm
 Terminal=false
 Type=Application
 Categories=GNOME;Application;Development;
-StartupNotify=true"
+StartupNotify=true
 EOF
-) > /usr/share/applications/eclipse.desktop
+) > /usr/share/applications/$ECLIPSE_DEST_NAME.desktop
 
 # Define the path of the workspace
-sed -i -e "s/^--launcher.defaultAction$/-data\nworkspace\n--launcher.defaultAction/" $ECLIPSE_DEST_PATH/eclipse/eclipse.ini
+sed -i -e "s/^--launcher.defaultAction$/-data\n$ECLIPSE_DEST_NAME-workspace\n--launcher.defaultAction/" \
+    $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse.ini
 
 # Install the Intellij IDEA IDE
 

@@ -1,11 +1,11 @@
 Package: dev-java
-Version: 0.0.3
+Version: 0.0.4
 Architecture: amd64
 Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 564300
-Depends: default-jdk, default-jdk-doc, openjdk-7-source, ant, maven, subversion, git, git-svn, checkstyle, junit, junit4, cobertura, libemma-java, libmysql-java, doxygen, bluej, greenfoot
+Depends: default-jdk, default-jdk-doc, openjdk-7-source, oracle-java8-installer, ant, maven, subversion, git, git-svn, checkstyle, junit, junit4, cobertura, libemma-java, libmysql-java, doxygen, bluej, greenfoot
 Description: [UVSQ/Sciences/Info] Développement en langage Java.
  Ce paquet dépend des paquets utilisés pour la programmation en Java.
 
