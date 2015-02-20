@@ -1,0 +1,10 @@
+Package: smis-token
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: dev-c, libusb-1.0-0-dev, openjdk-7-jre, gcc-arm-none-eabi
+Description: [UVSQ/Sciences/Info] Développement pour le token SMIS.
+

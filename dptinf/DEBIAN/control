@@ -1,11 +1,11 @@
 Package: dptinf
-Version: 0.0.4
+Version: 0.0.5
 Architecture: all
 Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 0
-Depends: in605, m1103, m1215, dev-c, dev-java, dev-web, ufrsciences, util-info
+Depends: in605, m1103, m1215, smis-token, dev-c, dev-java, dev-web, ufrsciences, util-info
 Description: [UVSQ/Sciences/Info] Méta-paquet pour les enseignements du département informatique.
  Ce paquet dépend de l'ensemble des paquets des enseignements du département informatique.
 

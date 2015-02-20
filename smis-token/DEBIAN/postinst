@@ -1,0 +1,74 @@
+#!/bin/bash -e
+
+# OpenOCD
+wget -O /tmp/openocd-0.8.0.tar.gz "http://sourceforge.net/projects/openocd/files/openocd/0.8.0/openocd-0.8.0.tar.gz/download"
+tar xf /tmp/openocd-0.8.0.tar.gz -C /usr/local/src/
+# Compile in a subshell to keep base directory unchanged
+(
+cd /usr/local/src/openocd-0.8.0/
+./configure --enable-stlink
+make
+make install
+)
+
+# Permissions
+gpasswd -a user dialout
+gpasswd -a user users
+(
+cat <<EOF
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="0666"
+EOF
+) > /etc/udev/rules.d/99-stlinkv2.rules
+udevadm control --reload-rules
+
+# Eclipse 
+# Downloading eclipse
+wget -O eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz "http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/kepler/SR2/eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz&r=1"
+
+# installing
+tar -C /opt -xaf eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
+mv /opt/eclipse /opt/eclipse-cpp-kepler
+
+# Remove archive
+rm -f eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
+
+# installing plugins
+/opt/eclipse-cpp-kepler/eclipse \
+-clean -purgeHistory \
+-application org.eclipse.equinox.p2.director \
+-noSplash \
+-repository \
+http://gnuarmeclipse.sourceforge.net/updates,\
+http://download.eclipse.org/tools/cdt/releases/kepler/ \
+-installIUs \
+org.eclipse.cdt.debug.gdbjtag.ui,\
+ilg.gnuarmeclipse.managedbuild.cross.feature.group,\
+ilg.gnuarmeclipse.doc.user.feature.group,\
+ilg.gnuarmeclipse.templates.freescale.feature.group,\
+ilg.gnuarmeclipse.templates.cortexm.feature.group,\
+ilg.gnuarmeclipse.debug.gdbjtag.jlink.feature.group,\
+ilg.gnuarmeclipse.debug.gdbjtag.openocd.feature.group,\
+ilg.gnuarmeclipse.packs.feature.group,\
+ilg.gnuarmeclipse.templates.stm.feature.group \
+-vmargs -Declipse.p2.mirrors=true
+
+# Define the path of the workspace
+sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home/eclipse-cpp-kepler-workspace\n--launcher.defaultAction/" \
+    /opt/eclipse-cpp-kepler/eclipse.ini
+
+# Generate an eclipse launcher
+(
+cat <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=Eclipse Kepler (C++)
+Comment=Eclipse IDE
+Exec=/opt/eclipse-cpp-kepler/eclipse
+Icon=/opt/eclipse-cpp-kepler/icon.xpm
+Terminal=false
+Type=Application
+Categories=GNOME;Application;Development;
+StartupNotify=true
+EOF
+) > /usr/share/applications/eclipse-cpp-kepler.desktop
+
