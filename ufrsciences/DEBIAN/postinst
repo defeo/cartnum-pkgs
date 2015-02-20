@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+# Application conf.
+APP_CFG_DIR=/home/user/.local/share/applications/
+APP_CFG_FILE=defaults.list
+
+DEV_EDITOR='geany.desktop'
+
+# Associate mime-type ($1) with an application ($2)
+function associate {
+  if grep $1 ${APP_CFG_DIR}${APP_CFG_FILE}; then # found
+    MIME_TYPE=${1/\//\\\/}
+    sed -i "s/${MIME_TYPE}=.*/${MIME_TYPE}=$2/" ${APP_CFG_DIR}${APP_CFG_FILE}
+  else # not found
+    echo "$1=$2" >> ${APP_CFG_DIR}${APP_CFG_FILE}
+  fi
+}
+
+if [ ! -d ${APP_CFG_DIR} ]; then
+  mkdir -p ${APP_CFG_DIR}
+  chown user:users ${APP_CFG_DIR}
+fi
+
+if [ ! -f ${APP_CFG_DIR}${APP_CFG_FILE} ]; then
+  echo "[Default Applications]" > ${APP_CFG_DIR}${APP_CFG_FILE}
+  chown user:users ${APP_CFG_DIR}${APP_CFG_FILE}
+fi
+
+# File association
+associate 'text/x-tex' ${DEV_EDITOR}
+
+# Tous les fichiers copiés doivent appartenir à user
+chown -R user:users ~user/.config
+
