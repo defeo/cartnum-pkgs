@@ -5,6 +5,6 @@ Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 0
-Depends: dev-web, nodejs, npm, sqlite3
-Description: [UVSQ/Sciences/Info] Node.js and tools for the WAS course
+Depends: dev-web, nodejs, nodejs-legacy, npm, sqlite3, git-gui, gitk, git-cola
+Description: [UVSQ/Sciences/Info] Node.js and git tools for the WAS course
 
