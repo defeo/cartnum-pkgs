@@ -13,7 +13,7 @@ REPO = /mnt/nasgul/guestrepo/trusty
 VERSION = trusty
 
 # Par défaut, tous les paquets sont construits
-all : $(PKGS_DEB) $(DEST_DIR)
+all : $(DEST_DIR) $(PKGS_DEB)
 
 # Création du répertoire de destination
 $(DEST_DIR) :
