@@ -1,0 +1,9 @@
+Package: sci-comp
+Version: 0.0.1
+Architecture: all
+Maintainer: Département informatique
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: python-pip, python3-pip, python-virtualenv, ipython-notebook, ipython3-notebook, julia, python-matplotlib, python3-matplotlib, python-pandas, python3-pandas, python-twitter, python-facebook, libnxt, python-nxt, python-nxt-filer
+Description: [UVSQ/Sciences/Info] Paquets pour calcul scientifique, traitement de données et robots Lego (TM)
