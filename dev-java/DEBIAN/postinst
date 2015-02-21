@@ -22,6 +22,7 @@ wget -O $ECLIPSE_ARCHIVE $ECLIPSE_URL
 # installing
 tar -C $ECLIPSE_DEST_PATH -xaf $ECLIPSE_ARCHIVE
 mv $ECLIPSE_DEST_PATH/eclipse $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME
+chown -R root:root $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME
 
 # Remove archive
 rm -f $ECLIPSE_ARCHIVE
@@ -66,7 +67,7 @@ EOF
 ) > /usr/share/applications/$ECLIPSE_DEST_NAME.desktop
 
 # Define the path of the workspace
-sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home/$ECLIPSE_DEST_NAME-workspace\n--launcher.defaultAction/" \
+sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home\/$ECLIPSE_DEST_NAME-workspace\n--launcher.defaultAction/" \
     $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse.ini
 
 # Install the Intellij IDEA IDE

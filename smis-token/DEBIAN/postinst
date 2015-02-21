@@ -21,13 +21,14 @@ EOF
 ) > /etc/udev/rules.d/99-stlinkv2.rules
 udevadm control --reload-rules
 
-# Eclipse 
+# Eclipse
 # Downloading eclipse
 wget -O eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz "http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/kepler/SR2/eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz&r=1"
 
 # installing
 tar -C /opt -xaf eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
 mv /opt/eclipse /opt/eclipse-cpp-kepler
+chown -R root:root /opt/eclipse-cpp-kepler
 
 # Remove archive
 rm -f eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
@@ -53,7 +54,7 @@ ilg.gnuarmeclipse.templates.stm.feature.group \
 -vmargs -Declipse.p2.mirrors=true
 
 # Define the path of the workspace
-sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home/eclipse-cpp-kepler-workspace\n--launcher.defaultAction/" \
+sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home\/eclipse-cpp-kepler-workspace\n--launcher.defaultAction/" \
     /opt/eclipse-cpp-kepler/eclipse.ini
 
 # Generate an eclipse launcher
