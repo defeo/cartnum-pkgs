@@ -1,11 +1,22 @@
 #!/bin/bash -e
 
+# Declarations
+OPENOCD_NAME=openocd
+OPENOCD_VERSION=0.8.0
+OPENOCD_FULLNAME="${OPENOCD_NAME}-${OPENOCD_VERSION}"
+
+ECLIPSE_VERSION_NAME=kepler
+ECLIPSE_VERSION_RELEASE=SR2
+ECLIPSE_DEST_PATH=/opt
+ECLIPSE_DEST_NAME="eclipse-cpp-${ECLIPSE_VERSION_NAME}"
+ECLIPSE_MENU_NAME="Eclipse ${ECLIPSE_VERSION_NAME} (C++)"
+
 # OpenOCD
-wget -O /tmp/openocd-0.8.0.tar.gz "http://sourceforge.net/projects/openocd/files/openocd/0.8.0/openocd-0.8.0.tar.gz/download"
-tar xf /tmp/openocd-0.8.0.tar.gz -C /usr/local/src/
+wget -O "/tmp/${OPENOCD_FULLNAME}.tar.gz" "http://sourceforge.net/projects/openocd/files/openocd/${OPENOCD_VERSION}/${OPENOCD_FULLNAME}.tar.gz/download"
+tar xf /tmp/${OPENOCD_FULLNAME}.tar.gz -C /usr/local/src/
 # Compile in a subshell to keep base directory unchanged
 (
-cd /usr/local/src/openocd-0.8.0/
+cd /usr/local/src/${OPENOCD_FULLNAME}/
 ./configure --enable-stlink
 make
 make install
@@ -22,19 +33,29 @@ EOF
 udevadm control --reload-rules
 
 # Eclipse
+
+# Build archive name and URL
+ECLIPSE_ARCHITECTURE=""
+if [ $(uname -m) = 'x86_64' ]; then
+    ECLIPSE_ARCHITECTURE="-x86_64"
+fi
+
+ECLIPSE_ARCHIVE="eclipse-cpp-${ECLIPSE_VERSION_NAME}-${ECLIPSE_VERSION_RELEASE}-linux-gtk${ECLIPSE_ARCHITECTURE}.tar.gz"
+ECLIPSE_URL="https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/${ECLIPSE_VERSION_NAME}/${ECLIPSE_VERSION_RELEASE}/${ECLIPSE_ARCHIVE}&r=1"
+
 # Downloading eclipse
-wget -O eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz "http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/kepler/SR2/eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz&r=1"
+wget -O $ECLIPSE_ARCHIVE $ECLIPSE_URL
 
 # installing
-tar -C /opt -xaf eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
-mv /opt/eclipse /opt/eclipse-cpp-kepler
-chown -R root:root /opt/eclipse-cpp-kepler
+tar -C $ECLIPSE_DEST_PATH -xaf $ECLIPSE_ARCHIVE
+mv $ECLIPSE_DEST_PATH/eclipse $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME
+chown -R root:root $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME
 
 # Remove archive
-rm -f eclipse-cpp-kepler-SR2-linux-gtk-x86_64.tar.gz
+rm -f $ECLIPSE_ARCHIVE
 
 # installing plugins
-/opt/eclipse-cpp-kepler/eclipse \
+$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse \
 -clean -purgeHistory \
 -application org.eclipse.equinox.p2.director \
 -noSplash \
@@ -54,22 +75,22 @@ ilg.gnuarmeclipse.templates.stm.feature.group \
 -vmargs -Declipse.p2.mirrors=true
 
 # Define the path of the workspace
-sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home\/eclipse-cpp-kepler-workspace\n--launcher.defaultAction/" \
-    /opt/eclipse-cpp-kepler/eclipse.ini
+sed -i -e "s/^--launcher.defaultAction$/-data\n@user.home\/$ECLIPSE_DEST_NAME-workspace\n--launcher.defaultAction/" \
+    $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse.ini
 
 # Generate an eclipse launcher
 (
 cat <<EOF
 [Desktop Entry]
 Encoding=UTF-8
-Name=Eclipse Kepler (C++)
+Name=$ECLIPSE_MENU_NAME
 Comment=Eclipse IDE
-Exec=/opt/eclipse-cpp-kepler/eclipse
-Icon=/opt/eclipse-cpp-kepler/icon.xpm
+Exec=$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse
+Icon=$ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/icon.xpm
 Terminal=false
 Type=Application
 Categories=GNOME;Application;Development;
 StartupNotify=true
 EOF
-) > /usr/share/applications/eclipse-cpp-kepler.desktop
+) > /usr/share/applications/$ECLIPSE_DEST_NAME.desktop
 
