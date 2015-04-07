@@ -1,6 +1,6 @@
 Package: dev-java
-Version: 0.0.4
-Architecture: amd64
+Version: 0.0.5
+Architecture: all
 Maintainer: Département informatique
 Section: science
 Priority: optional
