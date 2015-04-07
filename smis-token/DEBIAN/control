@@ -1,6 +1,6 @@
 Package: smis-token
 Version: 0.0.1
-Architecture: all
+Architecture: amd64
 Maintainer: Département informatique
 Section: science
 Priority: optional
