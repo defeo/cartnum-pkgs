@@ -3,8 +3,8 @@
 # A JDK have to be already installed on the system
 
 # Configuration for eclipse
-ECLIPSE_VERSION_NAME=luna
-ECLIPSE_VERSION_RELEASE=SR2
+ECLIPSE_VERSION_NAME=mars
+ECLIPSE_VERSION_RELEASE=R
 ECLIPSE_DEST_PATH=/opt
 ECLIPSE_DEST_NAME="eclipse-java-${ECLIPSE_VERSION_NAME}"
 ECLIPSE_MENU_NAME="Eclipse ${ECLIPSE_VERSION_NAME} (Java)"
@@ -42,7 +42,7 @@ $ECLIPSE_DEST_PATH/$ECLIPSE_DEST_NAME/eclipse \
 -application org.eclipse.equinox.p2.director \
 -noSplash \
 -repository \
-http://download.eclipse.org/releases/luna,\
+http://download.eclipse.org/releases/${ECLIPSE_VERSION_NAME},\
 http://eclipse-cs.sf.net/update,\
 http://findbugs.cs.umd.edu/eclipse,\
 http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/,\
