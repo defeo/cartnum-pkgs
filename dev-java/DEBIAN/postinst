@@ -10,7 +10,7 @@ ECLIPSE_DEST_NAME="eclipse-java-${ECLIPSE_VERSION_NAME}"
 ECLIPSE_MENU_NAME="Eclipse ${ECLIPSE_VERSION_NAME} (Java)"
 
 # Configuration for IntelliJ IDEA
-IDEA_ARCHIVE=ideaIC-14.1.1.tar.gz
+IDEA_ARCHIVE=ideaIC-14.1.4.tar.gz
 IDEA_URL="http://download.jetbrains.com/idea/${IDEA_ARCHIVE}"
 IDEA_DEST_PATH=/opt
 
