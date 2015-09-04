@@ -3,6 +3,7 @@
 #  - eclipse
 #  - IntelliJ IDEA
 #  - groovy
+#  - gradle
 # A JDK have to be already installed on the system
 
 # Configuration for eclipse
@@ -17,10 +18,15 @@ IDEA_ARCHIVE=ideaIC-14.1.4.tar.gz
 IDEA_URL="http://download.jetbrains.com/idea/${IDEA_ARCHIVE}"
 IDEA_DEST_PATH=/opt
 
-# Configuration for goovy
+# Configuration for groovy
 GROOVY_ARCHIVE=groovy-sdk-2.4.4.zip
 GROOVY_URL=https://bintray.com/artifact/download/groovy/maven/${GROOVY_ARCHIVE}
 GROOVY_DESTPATH=/opt
+
+# Configuration for gradle
+GRADLE_ARCHIVE=gradle-2.6-all.zip
+GRADLE_URL=https://services.gradle.org/distributions/${GRADLE_ARCHIVE}
+GRADLE_DESTPATH=/opt
 
 # Install the eclipse Java IDE
 
@@ -135,4 +141,22 @@ ln -s $GROOVY_DESTPATH/$GROOVY_PATH $GROOVY_DESTPATH/groovy
 # Set environment variables
 echo "GROOVY_HOME=/opt/groovy" > /etc/environment
 echo "PATH=$PATH:$GROOVY_HOME/bin" > /etc/environment
+
+# Install Gradle
+# Downloading
+wget -O $GRADLE_ARCHIVE $GROVVY_URL
+
+# installing
+unzip -d $GRADLE_DESTPATH $GRADLE_ARCHIVE
+
+# Remove archive
+rm -f $GRADLE_ARCHIVE
+
+# Create a symlink to GRADLE path
+GRADLE_PATH=$(ls $GRADLE_DESTPATH | grep gradle)
+ln -s $GRADLE_DESTPATH/$GRADLE_PATH $GRADLE_DESTPATH/gradle
+
+# Set environment variables
+echo "GRADLE_HOME=/opt/gradle" > /etc/environment
+echo "PATH=$PATH:$GRADLE_HOME/bin" > /etc/environment
 
