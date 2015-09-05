@@ -4,6 +4,7 @@
 #  - IntelliJ IDEA
 #  - groovy
 #  - gradle
+#  - scala
 # A JDK have to be already installed on the system
 
 # Configuration for eclipse
@@ -27,6 +28,12 @@ GROOVY_DESTPATH=/opt
 GRADLE_ARCHIVE=gradle-2.6-all.zip
 GRADLE_URL=https://services.gradle.org/distributions/${GRADLE_ARCHIVE}
 GRADLE_DESTPATH=/opt
+
+# Configuration for scala
+SCALA_VERSION=2.11.7
+SCALA_ARCHIVE=scala-${SCALA_VERSION}.tgz
+SCALA_URL=http://downloads.typesafe.com/scala/${SCALA_VERSION}/${SCALA_ARCHIVE}
+SCALA_DESTPATH=/opt
 
 # Install the eclipse Java IDE
 
@@ -161,4 +168,23 @@ ln -s $GRADLE_DESTPATH/$GRADLE_PATH $GRADLE_DESTPATH/gradle
 GRADLE_HOME=/opt/gradle
 sed -i '/^PATH/ s/$/:\/opt\/gradle\/bin/' /etc/environment
 echo "GRADLE_HOME=$GRADLE_HOME" >> /etc/environment
+
+# Install Scala
+# Downloading
+wget -O $SCALA_ARCHIVE $SCALA_URL
+
+# installing
+tar -C $SCALA_DESTPATH -xaf $SCALA_ARCHIVE
+
+# Remove archive
+rm -f $SCALA_ARCHIVE
+
+# Create a symlink to SCALA path
+SCALA_PATH=$(ls $SCALA_DESTPATH | grep scala)
+ln -s $SCALA_DESTPATH/$SCALA_PATH $SCALA_DESTPATH/scala
+
+# Set environment variables
+SCALA_HOME=/opt/scala
+sed -i '/^PATH/ s/$/:\/opt\/scala\/bin/' /etc/environment
+echo "SCALA_HOME=$SCALA_HOME" >> /etc/environment
 
