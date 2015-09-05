@@ -19,8 +19,8 @@ IDEA_URL="http://download.jetbrains.com/idea/${IDEA_ARCHIVE}"
 IDEA_DEST_PATH=/opt
 
 # Configuration for groovy
-GROOVY_ARCHIVE=groovy-sdk-2.4.4.zip
-GROOVY_URL=https://bintray.com/artifact/download/groovy/maven/${GROOVY_ARCHIVE}
+GROOVY_ARCHIVE=apache-groovy-sdk-2.4.4.zip
+GROOVY_URL=http://dl.bintray.com/groovy/maven/${GROOVY_ARCHIVE}
 GROOVY_DESTPATH=/opt
 
 # Configuration for gradle
@@ -126,7 +126,7 @@ EOF
 
 # Install the GROOVY SDK
 # Downloading
-wget -O $GROOVY_ARCHIVE $GROVVY_URL
+wget -O $GROOVY_ARCHIVE $GROOVY_URL
 
 # installing
 unzip -d $GROOVY_DESTPATH $GROOVY_ARCHIVE
@@ -139,12 +139,13 @@ GROOVY_PATH=$(ls $GROOVY_DESTPATH | grep groovy)
 ln -s $GROOVY_DESTPATH/$GROOVY_PATH $GROOVY_DESTPATH/groovy
 
 # Set environment variables
-echo "GROOVY_HOME=/opt/groovy" > /etc/environment
-echo "PATH=$PATH:$GROOVY_HOME/bin" > /etc/environment
+GROOVY_HOME=/opt/groovy
+sed -i '/^PATH/ s/$/:\/opt\/groovy\/bin/' /etc/environment
+echo "GROOVY_HOME=$GROOVY_HOME" >> /etc/environment
 
 # Install Gradle
 # Downloading
-wget -O $GRADLE_ARCHIVE $GROVVY_URL
+wget -O $GRADLE_ARCHIVE $GRADLE_URL
 
 # installing
 unzip -d $GRADLE_DESTPATH $GRADLE_ARCHIVE
@@ -157,6 +158,7 @@ GRADLE_PATH=$(ls $GRADLE_DESTPATH | grep gradle)
 ln -s $GRADLE_DESTPATH/$GRADLE_PATH $GRADLE_DESTPATH/gradle
 
 # Set environment variables
-echo "GRADLE_HOME=/opt/gradle" > /etc/environment
-echo "PATH=$PATH:$GRADLE_HOME/bin" > /etc/environment
+GRADLE_HOME=/opt/gradle
+sed -i '/^PATH/ s/$/:\/opt\/gradle\/bin/' /etc/environment
+echo "GRADLE_HOME=$GRADLE_HOME" >> /etc/environment
 
