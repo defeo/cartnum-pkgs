@@ -5,6 +5,7 @@
 #  - groovy
 #  - gradle
 #  - scala
+#  - modelio
 # A JDK have to be already installed on the system
 
 # Configuration for eclipse
@@ -34,6 +35,11 @@ SCALA_VERSION=2.11.7
 SCALA_ARCHIVE=scala-${SCALA_VERSION}.tgz
 SCALA_URL=http://downloads.typesafe.com/scala/${SCALA_VERSION}/${SCALA_ARCHIVE}
 SCALA_DESTPATH=/opt
+
+# Configuration for modelio
+MODELIO_ARCHIVE=modelio-open-201502191121-linux.gtk.x86_64.tar.gz
+MODELIO_URL=https://www.modelio.org/modelio-122/doc_download/103-modelio-331-linux-64-bit.html
+MODELIO_DESTPATH=/opt
 
 # Install the eclipse Java IDE
 
@@ -187,4 +193,34 @@ ln -s $SCALA_DESTPATH/$SCALA_PATH $SCALA_DESTPATH/scala
 SCALA_HOME=/opt/scala
 sed -i '/^PATH/ s/$/:\/opt\/scala\/bin/' /etc/environment
 echo "SCALA_HOME=$SCALA_HOME" >> /etc/environment
+
+# Install Modelio
+# Downloading
+wget -O $MODELIO_ARCHIVE $MODELIO_URL
+
+# installing
+tar -C $MODELIO_DESTPATH -xaf $MODELIO_ARCHIVE
+
+# Remove archive
+rm -f $MODELIO_ARCHIVE
+
+# Create a symlink to MODELIO path
+MODELIO_PATH="$(ls $MODELIO_DESTPATH | grep Modelio)"
+ln -s "$MODELIO_DESTPATH/$MODELIO_PATH" $MODELIO_DESTPATH/modelio
+
+# Generate a launcher
+(
+cat <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=Modelio
+Comment=Modelio modeling environment
+Exec=$MODELIO_DESTPATH/modelio/modelio
+Icon=$MODELIO_DESTPATH/modelio/icon.xpm
+Terminal=false
+Type=Application
+Categories=GNOME;Application;Development;
+StartupNotify=true"
+EOF
+) > /usr/share/applications/modelio.desktop
 
