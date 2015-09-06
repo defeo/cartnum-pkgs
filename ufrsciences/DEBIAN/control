@@ -1,10 +1,10 @@
 Package: ufrsciences
-Version: 0.0.3
+Version: 0.0.4
 Architecture: all
 Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 0
-Depends: libreoffice, chromium-browser, firefox, flashplugin-nonfree, filezilla, vlc, musescore, r-base, r-cran-rcmdr, scilab, gimp, texlive, texlive-lang-french, texlive-extra-utils, texlive-science, geany, python-pip, python3-pip, python-virtualenv, ipython-notebook, ipython3-notebook, julia, python-matplotlib, python3-matplotlib, python-pandas, python3-pandas, python-twitter, python-facebook, libnxt, python-nxt, python-nxt-filer
+Depends: libreoffice, chromium-browser, firefox, flashplugin-nonfree, filezilla, vlc, musescore, r-base, r-cran-rcmdr, scilab, gimp, texlive, texlive-lang-french, texlive-extra-utils, texlive-science, geany, python-pip, python3-pip, python-virtualenv, ipython-notebook, ipython3-notebook, julia, python-matplotlib, python3-matplotlib, python-pandas, python3-pandas, python-twitter, python-facebook, libnxt, python-nxt, python-nxt-filer, lrzip
 Description: [UVSQ/Sciences] Méta-paquet pour les enseignements de l'UFR des sciences.
 

@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+# Configuration for sage-math
+SAGE_VERSION=6.8
+SAGE_ARCHIVE=sage-${SAGE_VERSION}-x86_64-Linux-Ubuntu_14.04_64_bit.tar.lrz
+SAGE_URL=http://www.mirrorservice.org/sites/www.sagemath.org/linux/64bit/${SAGE_ARCHIVE}
+SAGE_DESTPATH=/opt
+
 # Application conf.
 APP_CFG_DIR=/home/user/.local/share/applications/
 APP_CFG_FILE=defaults.list
@@ -31,4 +37,23 @@ associate 'text/x-tex' ${DEV_EDITOR}
 
 # Tous les fichiers copiés doivent appartenir à user
 chown -R user:users ~user/.config
+
+# Install sage
+# Downloading
+wget -O $SAGE_ARCHIVE $SAGE_URL
+
+# installing
+lrzuntar -O $SAGE_DESTPATH $SAGE_ARCHIVE
+
+# Remove archive
+rm -f $SAGE_ARCHIVE
+
+# Create a symlink to SAGE path
+SAGE_PATH=$(ls $SAGE_DESTPATH | grep sage)
+ln -s $SAGE_DESTPATH/$SAGE_PATH $SAGE_DESTPATH/sage
+
+# Set environment variables
+SAGE_HOME=/opt/sage
+sed -i '/^PATH/ s/$/:\/opt\/sage/' /etc/environment
+echo "SAGE_HOME=$SAGE_HOME" >> /etc/environment
 
