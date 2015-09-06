@@ -79,3 +79,13 @@ chmod -R u=rwX,go=rX /opt/$PHYML_PATH
 ln -s /opt/$PHYML_PATH /opt/phyml
 sed -i '/^PATH/ s/$/:\/opt\/phyml/' /etc/environment
 
+# Install TreeDyn
+TREEDYN_ARCHIVE=treedynpack.tar.gz
+wget http://www.treedyn.org/download/${TREEDYN_ARCHIVE}
+tar -C /opt -xaf ${TREEDYN_ARCHIVE}
+rm -f ${TREEDYN_ARCHIVE}
+TREEDYN_PATH=$(ls /opt | grep treedynpack)
+chown -R root:root /opt/$TREEDYN_PATH
+chmod -R u=rwX,go=rX /opt/$TREEDYN_PATH
+sed -i '/^PATH/ s/$/:\/opt\/treedynpack/' /etc/environment
+
