@@ -68,3 +68,14 @@ chmod -R u=rwX,go=rX /opt/$GBLOCKS_PATH
 ln -s /opt/$GBLOCKS_PATH /opt/gblocks
 sed -i '/^PATH/ s/$/:\/opt\/gblocks/' /etc/environment
 
+# Install PhyML
+PHYML_ARCHIVE=PhyML-3.1.zip
+wget http://www.atgc-montpellier.fr/download/binaries/phyml/${PHYML_ARCHIVE}
+unzip ${PHYML_ARCHIVE} -d /opt
+rm -f ${PHYML_ARCHIVE}
+PHYML_PATH=$(ls /opt | grep PhyML)
+chown -R root:root /opt/$PHYML_PATH
+chmod -R u=rwX,go=rX /opt/$PHYML_PATH
+ln -s /opt/$PHYML_PATH /opt/phyml
+sed -i '/^PATH/ s/$/:\/opt\/phyml/' /etc/environment
+
