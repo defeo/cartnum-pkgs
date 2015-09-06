@@ -57,3 +57,14 @@ SAGE_HOME=/opt/sage
 sed -i '/^PATH/ s/$/:\/opt\/sage/' /etc/environment
 echo "SAGE_HOME=$SAGE_HOME" >> /etc/environment
 
+# Install Gblocks
+GBLOCKS_ARCHIVE=Gblocks_Linux64_0.91b.tar.Z
+wget http://molevol.cmima.csic.es/castresana/Gblocks/${GBLOCKS_ARCHIVE}
+tar -C /opt -xaf ${GBLOCKS_ARCHIVE}
+rm -f ${GBLOCKS_ARCHIVE}
+GBLOCKS_PATH=$(ls /opt | grep Gblocks)
+chown -R root:root /opt/$GBLOCKS_PATH
+chmod -R u=rwX,go=rX /opt/$GBLOCKS_PATH
+ln -s /opt/$GBLOCKS_PATH /opt/gblocks
+sed -i '/^PATH/ s/$/:\/opt\/gblocks/' /etc/environment
+
