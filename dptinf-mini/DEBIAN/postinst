@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+# Application conf.
+APP_CFG_DIR=/home/user/.local/share/applications/
+APP_CFG_FILE=defaults.list
+
+DEV_EDITOR='geany.desktop'
+
+MIMETYPE_FILE=/home/user/.mime.types
+
+# Associate mime-type ($1) with an application ($2)
+function associate {
+  if grep $1 ${APP_CFG_DIR}${APP_CFG_FILE}; then # found
+    MIME_TYPE=${1/\//\\\/}
+    sed -i "s/${MIME_TYPE}=.*/${MIME_TYPE}=$2/" ${APP_CFG_DIR}${APP_CFG_FILE}
+  else # not found
+    echo "$1=$2" >> ${APP_CFG_DIR}${APP_CFG_FILE}
+  fi
+}
+
+if [ ! -d ${APP_CFG_DIR} ]; then
+  mkdir -p ${APP_CFG_DIR}
+  chown user:users ${APP_CFG_DIR}
+fi
+
+if [ ! -f ${APP_CFG_DIR}${APP_CFG_FILE} ]; then
+  echo "[Default Applications]" > ${APP_CFG_DIR}${APP_CFG_FILE}
+  chown user:users ${APP_CFG_DIR}${APP_CFG_FILE}
+fi
+
+# Mime type for GnuPlot
+if [ ! -f ${MIMETYPE_FILE} ]; then
+  touch ${MIMETYPE_FILE}
+  chown user:users ${MIMETYPE_FILE}
+fi
+echo "application/x-gnuplot                          gp gpi plt gnuplot" >> ${MIMETYPE_FILE}
+
+# File association
+for mimetype in 'text/x-chdr' 'text/x-csrc' 'text/x-tex' 'text/x-java' 'text/x-python' 'text/x-sql' 'application/x-gnuplot'; do
+  associate $mimetype ${DEV_EDITOR}
+done
+
+# Tous les fichiers copiés doivent appartenir à user
+chown -R user:users ~user/.config ~user/.local
+
+
