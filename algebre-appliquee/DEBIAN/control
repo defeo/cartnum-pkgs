@@ -1,0 +1,10 @@
+Package: algebre-appliquee
+Version: 0.0.1
+Architecture: all
+Maintainer: Luca De Feo, Michaël Quisquater
+Section: science
+Priority: optional
+Installed-Size: 0
+Depends: libflint-dev, libgmp-dev, libntl-dev, libpari-dev, pari-gp
+Description: [UVSQ/Sciences] Méta-paquet pour les enseignements du Master d'Algèbre Appliquée.
+

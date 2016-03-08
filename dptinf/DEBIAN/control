@@ -5,7 +5,7 @@ Maintainer: Département informatique
 Section: science
 Priority: optional
 Installed-Size: 0
-Depends: in605, m1103, m1215, smis-token, dev-c, dev-java, dev-web, ufrsciences, util-info
+Depends: in605, m1103, m1215, smis-token, dev-c, dev-java, dev-web, ufrsciences, util-info, algebre-appliquee
 Description: [UVSQ/Sciences/Info] Méta-paquet pour les enseignements du département informatique.
  Ce paquet dépend de l'ensemble des paquets des enseignements du département informatique.
 
